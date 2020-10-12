@@ -44,10 +44,9 @@ export default {
 }
 
 .c-search-input {
-  background: #FFF;
+  background: #4D4D4D;
   padding: 8px 16px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px 0 rgba(128,128,128,0.1);
   font-size: 16px;
   display: flex;
   align-items: center;
@@ -56,7 +55,7 @@ export default {
   width: 100%;
 
   &:hover, &.focus {
-    border: 3px solid #4D4D4D;
+    border: 3px solid #2aab93;
     cursor: pointer;
   }
 
@@ -70,7 +69,7 @@ export default {
     font-size: 10px;
     top: 4px;
     left: 58px;
-    color: #4D4D4D;
+    color: #FFF;
   }
 
   input {
@@ -84,7 +83,7 @@ export default {
     background: transparent;
     font-size: 16px;
     font-family: "Roboto", "Open Sans", "Helvetica Neue", "Arial";
-    color: #4D4D4D;
+    color: #FFF;
     width: 100%;
 
     &:focus {

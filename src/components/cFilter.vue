@@ -55,10 +55,9 @@ export default {
 }
 
 .filter {
-  background: #FFF;
+  background: #4D4D4D;
   padding: 0 16px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px 0 rgba(128,128,128,0.1);
   font-size: 16px;
   display: flex;
   align-items: center;
@@ -67,7 +66,7 @@ export default {
   height: calc(100% - 6px);
 
   &:hover, &.focus {
-    border: 3px solid #4D4D4D;
+    border: 3px solid #2aab93;
     cursor: pointer;
   }
 
@@ -79,13 +78,12 @@ export default {
 
 .filter-content {
   position: absolute;
-  background: #FFF;
+  background: #4D4D4D;
   padding: 0 16px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px 0 rgba(128,128,128,0.1);
   top: 62px;
   left: -3px;
-  border: 3px solid #4D4D4D;
+  border: 3px solid #2aab93;
   padding: 20px;
   width: 300px;
 }

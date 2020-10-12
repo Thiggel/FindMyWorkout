@@ -10,11 +10,18 @@ require('dotenv').config();
 
 const { MongooseAdapter: Adapter } = require('@keystonejs/adapter-mongoose');
 const PROJECT_NAME = 'FindMyWorkout';
-const adapterConfig = { mongoUri: 'mongodb://localhost/' + process.env.MONGODB };
+const mongo_uri = process.env.NODE_ENV === 'production' ? process.env.MONGO_URI : 'mongodb://localhost/' + process.env.MONGODB;
+const adapterConfig = { mongoUri: mongo_uri };
 
 
 const keystone = new Keystone({
   adapter: new Adapter(adapterConfig),
+  cookie: {
+    secure: process.env.NODE_ENV === 'production', // Default to true in production
+    maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
+    sameSite: false,
+  },
+  cookieSecret: process.env.COOKIE_SECRET
 });
 
 const fileAdapter = new CloudinaryAdapter({

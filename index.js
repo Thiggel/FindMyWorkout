@@ -36,14 +36,24 @@ const fileAdapter = new CloudinaryAdapter({
 keystone.createList('Program', {
   schemaDoc: 'A collection of workout programs',
   fields: {
+    // general
     name: { type: Text, schemaDoc: 'The name of the program', isRequired: true },
-
     link: { type: Url, schemaDoc: 'The link to the program'},
-
     image: { type: CloudinaryImage, adapter: fileAdapter, schemaDoc: 'The image of the program', },
 
+    // price
     price: { type: Float, schemaDoc: 'How much does it cost?' },
     priceType: { type: Select, options: ['per day', 'per week', 'per month', 'per year', 'one time payment'], dataType: 'string', schemaDoc: 'What kind of price?' },
+    currency: { type: Select, options: ['dollars', 'euros', 'pounds'], dataType: 'string', schemaDoc: 'Which currency?' },
+
+    // payment
+    paypal: { type: Checkbox, schemaDoc: 'Can you pay using Paypal?' },
+    creditCard: { type: Checkbox, schemaDoc: 'Can you pay using credit card?' },
+    klarna: { type: Checkbox, schemaDoc: 'Can you pay using klarna?' },
+    stripe: { type: Checkbox, schemaDoc: 'Can you pay using Stripe?' },
+    bankAccount: { type: Checkbox, schemaDoc: 'Can you pay using your bank account?' },
+    applePay: { type: Checkbox, schemaDoc: 'Can you pay using Apple Pay?' },
+    googlePay: { type: Checkbox, schemaDoc: 'Can you pay using Google Pay?' },
 
     // type
     weightlifting: { type: Checkbox, schemaDoc: 'Does it include weightlifting?' },
@@ -51,6 +61,10 @@ keystone.createList('Program', {
     metcon: { type: Checkbox, schemaDoc: 'Does it include metabolic conditioning?' },
     engineRunning: { type: Checkbox, schemaDoc: 'Does it include engine running?' },
     strongman: { type: Checkbox, schemaDoc: 'Does it include strongman training?' },
+    powerLifting: { type: Checkbox, schemaDoc: 'Does it include power lifting?' },
+    bodyBuilding: { type: Checkbox, schemaDoc: 'Does it include body building?' },
+    crossfit: { type: Checkbox, schemaDoc: 'Does it include everything (crossfit)?' },
+    athleticTraining: { type: Checkbox, schemaDoc: 'Does it include athletic training?' },
 
     // goal
     competitions: { type: Checkbox, schemaDoc: 'Can you train for competitions with it?' },
@@ -72,6 +86,12 @@ keystone.createList('Program', {
     personalized: { type: Checkbox, schemaDoc: 'Is it personalized for the athlete?' },
     videoCoaching: { type: Checkbox, schemaDoc: 'Does it include video coaching?' },
 
+    // age group
+    teens: { type: Checkbox, schemaDoc: 'Is it made for teenagers?' },
+    adults: { type: Checkbox, schemaDoc: 'Is it made for adults?' },
+    masters: { type: Checkbox, schemaDoc: 'Is it made for masters?' },
+
+    // time
     trainingDaysPerWeek: { type: Float, schemaDoc: 'How many training days per week?' },
     actRecDaysPerWeek: { type: Float, schemaDoc: 'How many active recovery days per week?' },
     hoursPerDay: { type: Float, schemaDoc: 'How many hours does a training take on average?' }

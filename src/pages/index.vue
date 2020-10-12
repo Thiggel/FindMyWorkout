@@ -164,7 +164,7 @@ const GET_PROGRAMS = `
 `;
 
 function graphql(query, variables = {}) {
-  return fetch('http://localhost:3000/admin/api', {
+  return fetch(process.env.BASE_URL + '/admin/api', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

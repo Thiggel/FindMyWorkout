@@ -24,7 +24,9 @@
     "@keystonejs/app-nuxt": "^5.1.6",
     "@keystonejs/fields": "^18.0.0",
     "@keystonejs/fields-cloudinary-image": "^2.0.0",
+    "@keystonejs/file-adapters": "^7.0.8",
     "@keystonejs/keystone": "^17.0.0",
+    "@keystonejs/auth-password": "^5.1.16",
     "core-js": "^3.6.5",
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
@@ -33,7 +35,6 @@
     "sass": "^1.26.11",
     "sass-loader": "^10.0.2",
     "v-click-outside": "^3.1.2",
-    "vue": "^2.6.12",
-    "@keystonejs/file-adapters": "^7.0.8"
+    "vue": "^2.6.12"
   }
 }

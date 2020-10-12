@@ -1,5 +1,6 @@
 const { Keystone } = require('@keystonejs/keystone');
-const { Text, Float, Checkbox, Select, Url } = require('@keystonejs/fields');
+const { Text, Float, Checkbox, Select, Url, Password } = require('@keystonejs/fields');
+const { PasswordAuthStrategy } = require('@keystonejs/auth-password');
 const { CloudinaryAdapter } = require('@keystonejs/file-adapters');
 const { CloudinaryImage } = require('@keystonejs/fields-cloudinary-image');
 const { GraphQLApp } = require('@keystonejs/app-graphql');
@@ -76,6 +77,23 @@ keystone.createList('Program', {
     hoursPerDay: { type: Float, schemaDoc: 'How many hours does a training take on average?' }
   },
 });
+
+keystone.createList('User', {
+  fields: {
+    username: { type: Text },
+    password: { type: Password },
+  },
+});
+
+const authStrategy = keystone.createAuthStrategy({
+  type: PasswordAuthStrategy,
+  list: 'User',
+  config: {
+    identityField: 'username', // default: 'email'
+    secretField: 'password', // default: 'password'
+  },
+});
+
 
 module.exports = {
   keystone,

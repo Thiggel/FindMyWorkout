@@ -82,7 +82,7 @@ keystone.createList('User', {
   fields: {
     username: { type: Text },
     password: { type: Password },
-  },
+  }
 });
 
 const authStrategy = keystone.createAuthStrategy({
@@ -91,7 +91,7 @@ const authStrategy = keystone.createAuthStrategy({
   config: {
     identityField: 'username', // default: 'email'
     secretField: 'password', // default: 'password'
-  },
+  }
 });
 
 

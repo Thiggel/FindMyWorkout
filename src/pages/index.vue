@@ -84,7 +84,7 @@
         </div>
 
         <a v-for="program in programs" :key="program.id" class="program-item" :href="program.link" target="_blank">
-          <img class="image" :src="program.image.publicUrlTransformed">
+          <img class="image" :src="program.image && program.image.publicUrlTransformed ? program.image.publicUrlTransformed : ''">
           <h1 class="name">{{ program.name }}</h1>
           <div class="features">
             <div class="type">

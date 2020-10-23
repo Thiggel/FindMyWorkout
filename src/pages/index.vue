@@ -19,11 +19,21 @@
       <!-- If there are some... -->
       <div v-else class="program-list">
         <div class="filter-list">
-          <cFilter label="Program Type" icon="las la-warehouse" :value="filtersOpen.type" @input="updateFilters('type')">
+          <multiselect
+              v-model="selectedGoals"
+              :options="goals"
+              :multiple="true"
+              :close-on-select="false"
+              :clear-on-select="false"
+              label="Goal"
+              placeholder="Select..."
+          ></multiselect>
+
+          <!--<cFilter label="Program Type" icon="las la-warehouse" :value="filtersOpen.type" @input="updateFilters('type')">
             <FormulateInput
                 type="checkbox"
                 label="What type of program do you want?"
-                v-model="type"
+                v-model=""
                 :options="{weightlifting: 'Weightlifting', gymnastics: 'Gymnastics', metcon: 'Metabolic Conditioning', engineRunning: 'Engine Running', strongman: 'Strongman'}"
             />
           </cFilter>
@@ -54,18 +64,21 @@
 
             <p>You want to workout <b>{{ time.timesPerWeek }}</b> days a week for <b>{{ time.hoursPerDay }}</b> hours each.</p>
           </cFilter>
+
+
+
           <cFilter label="Goal" icon="las la-running" :value="filtersOpen.goal" @input="updateFilters('goal')">
             <FormulateInput
                 type="checkbox"
                 label="What's your goal?"
-                v-model="goal"
+                v-model=""
                 :options="{competitions: 'Competitions', opens: 'Crossfit Opens', games: 'Crossfit Games', fitness: 'Fitness', weightloss: 'Weight loss', musclegain: 'Muscle gain'}"
             />
           </cFilter>
           <cFilter label="Level" icon="las la-level-up-alt" :value="filtersOpen.level" @input="updateFilters('level')">
             <FormulateInput
-                v-model="level"
-                :options="{beginner: 'Beginner', intermediate: 'Intermediate', advanced: 'Advanced', elite: 'Elite'}"
+                v-model=""
+                :options="levels"
                 type="select"
                 placeholder="Select an option"
                 label="On which athletic level are you?"
@@ -75,12 +88,12 @@
             <FormulateInput
                 type="checkbox"
                 label="What extras do you want?"
-                v-model="extras"
-                :options="{comesWithApp: 'App', personalized: 'Personalized Program', videoCoaching: 'Video Coaching'}"
+                v-model="selectedExtras"
+                :options="extras"
             />
           </cFilter>
 
-          <cSearchInput />
+          <cSearchInput />-->
         </div>
 
         <a v-for="program in programs" :key="program.id" class="program-item" :href="program.link" target="_blank">
@@ -89,7 +102,7 @@
           <div class="features">
             <div class="type">
               <i class="las la-warehouse"></i>
-              <span>{{ program.type }}</span>
+              <span>{{ getNameList(program.trainingTypes) }}</span>
             </div>
             <div class="time">
               <i class="las la-clock"></i>
@@ -97,19 +110,19 @@
             </div>
             <div class="extras">
               <i class="las la-folder-plus"></i>
-              <span>{{ program.extras }}</span>
+              <span>{{ getNameList(program.extras) }}</span>
             </div>
             <div class="goal">
               <i class="las la-running"></i>
-              <span>{{ program.goal }}</span>
+              <span>{{ getNameList(program.goal) }}</span>
             </div>
             <div class="level">
               <i class="las la-level-up-alt"></i>
-              <span>{{ program.level }}</span>
+              <span>{{ getNameList(program.level) }}</span>
             </div>
             <div class="language">
               <i class="las la-language"></i>
-              <span>{{ program.languages }}</span>
+              <span>{{ getNameList(program.languages) }}</span>
             </div>
           </div>
         </a>
@@ -126,8 +139,8 @@ import cSearchInput from "@/components/cSearchInput.vue";
 /** 
   GraphQL Queries & Mutations
 */
-const GET_PROGRAMS = `
-  query GetPrograms {
+const GET_DATA = `
+  query GetData {
     allPrograms {
       id
       name
@@ -138,27 +151,47 @@ const GET_PROGRAMS = `
       }
       price
       priceType
-      weightlifting
-      gymnastics
-      metcon
-      engineRunning
-      strongman
-      competitions
-      opens
-      games
-      fitness
-      weightloss
-      musclegain
-      level
-      english
-      german
-      spanish
-      comesWithApp
-      personalized
-      videoCoaching
+      currency
+
       trainingDaysPerWeek
       actRecDaysPerWeek
       hoursPerDay
+
+      payment { name }
+      trainingTypes { name }
+      goal { name }
+      level { name }
+      languages { name }
+      extras { name }
+      ages { name }
+    }
+
+    allPaymentTypes {
+      name
+    }
+
+    allTrainingTypes {
+      name
+    }
+
+    allGoals {
+      name
+    }
+
+    allLevels {
+      name
+    }
+
+    allLanguages {
+      name
+    }
+
+    allAges {
+      name
+    }
+
+    allExtras {
+      name
     }
   }
 `;
@@ -199,55 +232,37 @@ export default {
         level: false,
         extras: false
       },
-      type: [],
       time: {
         hoursPerDay: 2,
         timesPerWeek: 5
       },
-      goal: [],
-      level: "",
-      extras: []
+      selectedGoals: [],
+      selectedLevels: [],
+      selectedExtras: [],
+      selectedTrainingTypes: [],
+      selectedLanguages: [],
+      selectedPaymentTypes: [],
+      selectedAges: [],
     };
   },
 
   // Get the programs on server side
   async asyncData() {
-    const { data } = await graphql(GET_PROGRAMS);
+    const { data } = await graphql(GET_DATA);
     return {
       programs: data.allPrograms.map(program => {
-        let type = [];
-        if(program.weightlifting) type.push('Weightlifting');
-        if(program.metcon) type.push('MetCon');
-        if(program.gymnastics) type.push('Gymnastics');
-        if(program.engineRunning) type.push('Engine Running');
-        if(program.strongman) type.push('Strongman');
-        program.type = type.join(', ');
-
-        let goal = [];
-        if(program.competitions) goal.push('Competitions');
-        if(program.opens) goal.push('Opens');
-        if(program.games) goal.push('Games');
-        if(program.fitness) goal.push('Fitness');
-        if(program.weightloss) goal.push('Weightloss');
-        if(program.musclegain) goal.push('Musclegain');
-        program.goal = goal.join(', ');
 
         program.time = program.trainingDaysPerWeek + ' days / week <br>' + program.hoursPerDay + ' / day';
 
-        let extras = [];
-        if(program.comesWithApp) extras.push('App');
-        if(program.personalized) extras.push('Personalized Training');
-        if(program.videoCoaching) extras.push('Video Coaching');
-        program.extras = extras.join(', ');
-
-        let languages = [];
-        if(program.german) languages.push('German');
-        if(program.english) languages.push('English');
-        if(program.spanish) languages.push('Spanish');
-        program.languages = languages.join(', ');
-
         return program;
       }),
+      paymentTypes: data.allPaymentTypes.map(el => el.name),
+      trainingTypes: data.allTrainingTypes.map(el => el.name),
+      goals: data.allGoals.map(el => el.name),
+      levels: data.allLevels.map(el => el.name),
+      languages: data.allLanguages.map(el => el.name),
+      extras: data.allExtras.map(el => el.name),
+      age: data.allAges.map(el => el.name)
     };
   },
 
@@ -262,6 +277,10 @@ export default {
         this.filtersOpen[key] = false;
 
       this.filtersOpen[obj] = true
+    },
+
+    getNameList(arr) {
+      return arr.map(el => el.name).join(", ");
     }
   },
 };

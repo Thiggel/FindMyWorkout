@@ -3,7 +3,6 @@
     "name": "index",
     "path": "/",
     "component": "/Users/filipe/Documents/find-my-workout/src/pages/index.vue",
-    "chunkName": "pages/index",
-    "_name": "_16cdacb8"
+    "chunkName": "pages/index"
   }
 ]

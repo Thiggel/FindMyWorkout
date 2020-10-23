@@ -31,11 +31,13 @@
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "keystone-with-multi-select": "^0.3.24",
     "node": "12.13",
     "nuxt": "^2.14.6",
     "sass": "^1.26.11",
     "sass-loader": "^10.0.2",
     "v-click-outside": "^3.1.2",
-    "vue": "^2.6.12"
+    "vue": "^2.6.12",
+    "vue-multiselect": "^2.1.6"
   }
 }

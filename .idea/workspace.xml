@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5a73e427-7622-4283-af47-828293da68c4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/schema.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/routes.json" beforeDir="false" afterPath="$PROJECT_DIR$/dist/routes.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +45,7 @@
       <workItem from="1602487665468" duration="126000" />
       <workItem from="1602488404009" duration="6681000" />
       <workItem from="1603011535037" duration="1469000" />
-      <workItem from="1603362203794" duration="6943000" />
+      <workItem from="1603362203794" duration="13922000" />
     </task>
     <servers />
   </component>
@@ -59,6 +53,10 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="572" y="334" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603449888774">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="572" y="334" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1680.1050@0.0.1680.1050" timestamp="1603449888774" />
     <state x="505" y="233" width="670" height="676" key="search.everywhere.popup" timestamp="1601632823196">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>

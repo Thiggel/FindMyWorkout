@@ -2,8 +2,97 @@
   <div class="app">
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500&display=swap" rel="stylesheet">
+    <transition name="fade">
+      <div class="overlay" id="filter-panel" v-if="filterPanelOpen">
 
+        <div class="filter-list">
+          <cSearchInput v-model="search" />
+
+          <div class="filter-group">
+            <h2>Program Type</h2>
+            <FormulateInput
+                type="checkbox"
+                label="What type of program do you want?"
+                v-model="selectedTrainingTypes"
+                :options="trainingTypes"
+            />
+          </div>
+
+
+          <div class="filter-group">
+            <h2>Time extent</h2>
+
+            <FormulateInput
+                v-model="time.noPreference"
+                type="checkbox"
+                label="No preference"
+            />
+            <div v-if="!time.noPreference">
+              <p class="big-text"><b>{{ time.timesPerWeek }}</b> days a week for <b>{{ time.hoursPerDay }}</b> hours each.</p>
+              <FormulateInput
+                  label="How many workout days a week?"
+                  type="range"
+                  name="range"
+                  min="1"
+                  max="7"
+                  value="3"
+                  validation="min:1|max:7"
+                  error-behavior="live"
+                  v-model="time.timesPerWeek"
+              />
+              <FormulateInput
+                  label="How many hours per workout?"
+                  type="range"
+                  name="range"
+                  min="1"
+                  max="8"
+                  value="1"
+                  validation="min:1|max:8"
+                  error-behavior="live"
+                  v-model="time.hoursPerDay"
+              />
+            </div>
+          </div>
+
+
+          <div class="filter-group">
+            <h2>Goal</h2>
+            <FormulateInput
+                type="checkbox"
+                label="What's your goal?"
+                v-model="selectedGoals"
+                :options="goals"
+            />
+          </div>
+
+
+          <div class="filter-group">
+            <h2>Levels</h2>
+            <FormulateInput
+                v-model="selectedLevels"
+                :options="levels"
+                type="select"
+                placeholder="Select an option"
+                label="On which athletic level are you?"
+            />
+          </div>
+
+          <div class="filter-group">
+            <h2>Extras</h2>
+            <FormulateInput
+                type="checkbox"
+                label="What extras do you want?"
+                v-model="selectedExtras"
+                :options="extras"
+            />
+          </div>
+        </div>
+
+      </div>
+    </transition>
     <div class="wrapper">
+      <i class="menu-opener las la-bars" @click="filterPanelOpen = !filterPanelOpen"></i>
+
       <div class="logo">
         <svg width="300" height="69" viewBox="0 0 300 69" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="300" height="69" fill="#2AAB93"/>
@@ -18,73 +107,6 @@
 
       <!-- If there are some... -->
       <div v-else class="program-list">
-        <div class="filter-list">
-          <cFilter label="Program Type" icon="las la-warehouse" :value="filtersOpen.type" @input="updateFilters('type')">
-            <FormulateInput
-                type="checkbox"
-                label="What type of program do you want?"
-                v-model="selectedTrainingTypes"
-                :options="trainingTypes"
-            />
-          </cFilter>
-
-          <cFilter label="Time Extent" icon="las la-clock" :value="filtersOpen.time" @input="updateFilters('time')">
-            <FormulateInput
-                label="How many workout days a week?"
-                type="range"
-                name="range"
-                min="1"
-                max="7"
-                value="3"
-                validation="min:1|max:7"
-                error-behavior="live"
-                v-model="time.timesPerWeek"
-            />
-            <FormulateInput
-                label="How many hours per workout?"
-                type="range"
-                name="range"
-                min="1"
-                max="8"
-                value="1"
-                validation="min:1|max:8"
-                error-behavior="live"
-                v-model="time.hoursPerDay"
-            />
-
-            <p>You want to workout <b>{{ time.timesPerWeek }}</b> days a week for <b>{{ time.hoursPerDay }}</b> hours each.</p>
-          </cFilter>
-
-
-
-          <cFilter label="Goal" icon="las la-running" :value="filtersOpen.goal" @input="updateFilters('goal')">
-            <FormulateInput
-                type="checkbox"
-                label="What's your goal?"
-                v-model="selectedGoals"
-                :options="goals"
-            />
-          </cFilter>
-          <cFilter label="Level" icon="las la-level-up-alt" :value="filtersOpen.level" @input="updateFilters('level')">
-            <FormulateInput
-                v-model="selectedLevels"
-                :options="levels"
-                type="select"
-                placeholder="Select an option"
-                label="On which athletic level are you?"
-            />
-          </cFilter>
-          <cFilter label="Extras" icon="las la-folder-plus" :value="filtersOpen.extras" @input="updateFilters('extras')">
-            <FormulateInput
-                type="checkbox"
-                label="What extras do you want?"
-                v-model="selectedExtras"
-                :options="extras"
-            />
-          </cFilter>
-
-          <cSearchInput />
-        </div>
 
         <a v-for="program in filteredPrograms" :key="program.id" class="program-item" :href="program.link" target="_blank">
           <img class="image" :src="program.image && program.image.publicUrlTransformed ? program.image.publicUrlTransformed : ''">
@@ -124,12 +146,11 @@
 
 <script>
 import { GET_DATA, graphql } from "@/state/queries";
-import cFilter from "@/components/cFilter.vue";
 import cSearchInput from "@/components/cSearchInput.vue";
 
 export default {
   components: {
-    cFilter, cSearchInput
+    cSearchInput
   },
 
   head: {
@@ -141,31 +162,20 @@ export default {
 
   data() {
     return {
-      filtersOpen: {
-        type: false,
-        goal: false,
-        time: false,
-        level: false,
-        extras: false
-      },
+      filterPanelOpen: false,
       time: {
+        noPreference: true,
         hoursPerDay: 2,
         timesPerWeek: 5
       },
-      selectedGoals: [],
-      selectedLevels: [],
-      selectedExtras: [],
-      selectedTrainingTypes: [],
-      selectedLanguages: [],
-      selectedPaymentTypes: [],
-      selectedAges: []
+      search: ''
     };
   },
 
   computed: {
     filteredPrograms() {
       if(this.programs) {
-        return this.applyFilters(
+        return this.filterSearch(this.filterTime(this.applyFilters(
             this.programs,
             [
               { selected: this.selectedTrainingTypes, key: 'trainingTypes' },
@@ -176,7 +186,7 @@ export default {
               { selected: this.selectedPaymentTypes, key: 'payment' },
               { selected: this.selectedAges, key: 'ages' },
             ]
-        );
+        )));
       }
       return [];
     }
@@ -187,21 +197,44 @@ export default {
     const { data } = await graphql(GET_DATA);
 
     let transformToOptions = obj => obj.map(el => { return { value: el.name, label: el.name }; });
+    let paymentTypes = transformToOptions(data.allPaymentTypes),
+        trainingTypes = transformToOptions(data.allTrainingTypes),
+        goals = transformToOptions(data.allGoals),
+        levels = transformToOptions(data.allLevels),
+        languages = transformToOptions(data.allLanguages),
+        extras = transformToOptions(data.allExtras),
+        age = transformToOptions(data.allAges);
+
+    let transformToValue = obj => obj.map(el => el.name);
+    // make everything preselected
+    let selectedPaymentTypes = transformToValue(data.allPaymentTypes),
+        selectedTrainingTypes = transformToValue(data.allTrainingTypes),
+        selectedGoals = transformToValue(data.allGoals),
+        selectedLevels = transformToValue(data.allLevels),
+        selectedLanguages = transformToValue(data.allLanguages),
+        selectedExtras = transformToValue(data.allExtras),
+        selectedAges = transformToValue(data.allAges);
 
     return {
       programs: data.allPrograms.map(program => {
-
         program.time = program.trainingDaysPerWeek + ' days / week <br>' + program.hoursPerDay + ' / day';
-
         return program;
       }),
-      paymentTypes: transformToOptions(data.allPaymentTypes),
-      trainingTypes: transformToOptions(data.allTrainingTypes),
-      goals: transformToOptions(data.allGoals),
-      levels: transformToOptions(data.allLevels),
-      languages: transformToOptions(data.allLanguages),
-      extras: transformToOptions(data.allExtras),
-      age: transformToOptions(data.allAges)
+      paymentTypes,
+      trainingTypes,
+      goals,
+      levels,
+      languages,
+      extras,
+      age,
+
+      selectedPaymentTypes,
+      selectedTrainingTypes,
+      selectedGoals,
+      selectedLevels,
+      selectedLanguages,
+      selectedExtras,
+      selectedAges
     };
   },
 
@@ -232,11 +265,16 @@ export default {
       return res;
     },
 
-    updateFilters(obj) {
-      for (const [key, value] of Object.entries(this.filtersOpen))
-        this.filtersOpen[key] = false;
+    filterTime(arr) {
+      if(this.time.noPreference) return arr;
+      return arr.filter(
+          el => el.trainingDaysPerWeek == this.time.timesPerWeek && el.hoursPerDay == this.time.hoursPerDay
+      );
+    },
 
-      this.filtersOpen[obj] = true
+    filterSearch(arr) {
+      if(!this.search.length) return arr;
+      return arr.filter(el => el.name.toUpperCase().includes(this.search.toUpperCase()))
     },
 
     getNameList(arr) {
@@ -250,15 +288,38 @@ export default {
 <style lang="scss">
 @import '../../node_modules/@braid/vue-formulate/themes/snow/snow.scss';
 
+$grey: rgba(39, 39, 39, 1);
+$greyTransparent: rgba(39, 39, 39, 0.5);
+$white: #fff;
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
 body {
-  background: #272727;
+  background: $grey;
   font-family: "Roboto", "Open Sans", "Helvetica Neue", "Arial";
-  color: #FFF;
+  color: $white;
 }
 
 a {
   text-decoration: none;
-  color: #FFF;
+  color: $white;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: $greyTransparent;
+  z-index: 999;
+  backdrop-filter: blur(15px);
+  overflow-y: scroll;
 }
 
 .logo {
@@ -267,13 +328,31 @@ a {
   margin-top: 40px;
 }
 
+.menu-opener {
+  font-size: 34px;
+  cursor: pointer;
+  color: #2aab93;
+  position: absolute;
+  top: 58px;
+  left: max(calc((100vw - 1250px) / 2), 24px);
+  z-index: 1000;
+}
+
 .filter-list {
   width: 100%;
   max-width: 1250px;
   display: block;
   width: auto;
   margin: 0 auto 40px;
-  display: flex;
+  margin-top: 150px;
+}
+
+.filter-group {
+  background: #4D4D4D;
+  padding: 24px;
+  border-radius: 10px;
+  margin: 24px 0;
+  width: calc(100% - 48px);
 }
 
 .program-list {
@@ -336,5 +415,88 @@ a {
   }
 }
 
-fieldset[disabled] .multiselect{pointer-events:none}.multiselect__spinner{position:absolute;right:1px;top:1px;width:48px;height:35px;background:#fff;display:block}.multiselect__spinner:after,.multiselect__spinner:before{position:absolute;content:"";top:50%;left:50%;margin:-8px 0 0 -8px;width:16px;height:16px;border-radius:100%;border-color:#41b883 transparent transparent;border-style:solid;border-width:2px;box-shadow:0 0 0 1px transparent}.multiselect__spinner:before{animation:a 2.4s cubic-bezier(.41,.26,.2,.62);animation-iteration-count:infinite}.multiselect__spinner:after{animation:a 2.4s cubic-bezier(.51,.09,.21,.8);animation-iteration-count:infinite}.multiselect__loading-enter-active,.multiselect__loading-leave-active{transition:opacity .4s ease-in-out;opacity:1}.multiselect__loading-enter,.multiselect__loading-leave-active{opacity:0}.multiselect,.multiselect__input,.multiselect__single{font-family:inherit;font-size:16px;-ms-touch-action:manipulation;touch-action:manipulation}.multiselect{box-sizing:content-box;display:block;position:relative;width:100%;min-height:40px;text-align:left;color:#35495e}.multiselect *{box-sizing:border-box}.multiselect:focus{outline:none}.multiselect--disabled{opacity:.6}.multiselect--active{z-index:1}.multiselect--active:not(.multiselect--above) .multiselect__current,.multiselect--active:not(.multiselect--above) .multiselect__input,.multiselect--active:not(.multiselect--above) .multiselect__tags{border-bottom-left-radius:0;border-bottom-right-radius:0}.multiselect--active .multiselect__select{transform:rotate(180deg)}.multiselect--above.multiselect--active .multiselect__current,.multiselect--above.multiselect--active .multiselect__input,.multiselect--above.multiselect--active .multiselect__tags{border-top-left-radius:0;border-top-right-radius:0}.multiselect__input,.multiselect__single{position:relative;display:inline-block;min-height:20px;line-height:20px;border:none;border-radius:5px;background:#fff;padding:0 0 0 5px;width:100%;transition:border .1s ease;box-sizing:border-box;margin-bottom:8px;vertical-align:top}.multiselect__input::-webkit-input-placeholder{color:#35495e}.multiselect__input:-ms-input-placeholder{color:#35495e}.multiselect__input::placeholder{color:#35495e}.multiselect__tag~.multiselect__input,.multiselect__tag~.multiselect__single{width:auto}.multiselect__input:hover,.multiselect__single:hover{border-color:#cfcfcf}.multiselect__input:focus,.multiselect__single:focus{border-color:#a8a8a8;outline:none}.multiselect__single{padding-left:5px;margin-bottom:8px}.multiselect__tags-wrap{display:inline}.multiselect__tags{min-height:40px;display:block;padding:8px 40px 0 8px;border-radius:5px;border:1px solid #e8e8e8;background:#fff;font-size:14px}.multiselect__tag{position:relative;display:inline-block;padding:4px 26px 4px 10px;border-radius:5px;margin-right:10px;color:#fff;line-height:1;background:#41b883;margin-bottom:5px;white-space:nowrap;overflow:hidden;max-width:100%;text-overflow:ellipsis}.multiselect__tag-icon{cursor:pointer;margin-left:7px;position:absolute;right:0;top:0;bottom:0;font-weight:700;font-style:normal;width:22px;text-align:center;line-height:22px;transition:all .2s ease;border-radius:5px}.multiselect__tag-icon:after{content:"\D7";color:#266d4d;font-size:14px}.multiselect__tag-icon:focus,.multiselect__tag-icon:hover{background:#369a6e}.multiselect__tag-icon:focus:after,.multiselect__tag-icon:hover:after{color:#fff}.multiselect__current{min-height:40px;overflow:hidden;padding:8px 12px 0;padding-right:30px;white-space:nowrap;border-radius:5px;border:1px solid #e8e8e8}.multiselect__current,.multiselect__select{line-height:16px;box-sizing:border-box;display:block;margin:0;text-decoration:none;cursor:pointer}.multiselect__select{position:absolute;width:40px;height:38px;right:1px;top:1px;padding:4px 8px;text-align:center;transition:transform .2s ease}.multiselect__select:before{position:relative;right:0;top:65%;color:#999;margin-top:4px;border-style:solid;border-width:5px 5px 0;border-color:#999 transparent transparent;content:""}.multiselect__placeholder{color:#adadad;display:inline-block;margin-bottom:10px;padding-top:2px}.multiselect--active .multiselect__placeholder{display:none}.multiselect__content-wrapper{position:absolute;display:block;background:#fff;width:100%;max-height:240px;overflow:auto;border:1px solid #e8e8e8;border-top:none;border-bottom-left-radius:5px;border-bottom-right-radius:5px;z-index:1;-webkit-overflow-scrolling:touch}.multiselect__content{list-style:none;display:inline-block;padding:0;margin:0;min-width:100%;vertical-align:top}.multiselect--above .multiselect__content-wrapper{bottom:100%;border-bottom-left-radius:0;border-bottom-right-radius:0;border-top-left-radius:5px;border-top-right-radius:5px;border-bottom:none;border-top:1px solid #e8e8e8}.multiselect__content::webkit-scrollbar{display:none}.multiselect__element{display:block}.multiselect__option{display:block;padding:12px;min-height:40px;line-height:16px;text-decoration:none;text-transform:none;vertical-align:middle;position:relative;cursor:pointer;white-space:nowrap}.multiselect__option:after{top:0;right:0;position:absolute;line-height:40px;padding-right:12px;padding-left:20px;font-size:13px}.multiselect__option--highlight{background:#41b883;outline:none;color:#fff}.multiselect__option--highlight:after{content:attr(data-select);background:#41b883;color:#fff}.multiselect__option--selected{background:#f3f3f3;color:#35495e;font-weight:700}.multiselect__option--selected:after{content:attr(data-selected);color:silver}.multiselect__option--selected.multiselect__option--highlight{background:#ff6a6a;color:#fff}.multiselect__option--selected.multiselect__option--highlight:after{background:#ff6a6a;content:attr(data-deselect);color:#fff}.multiselect--disabled{background:#ededed;pointer-events:none}.multiselect--disabled .multiselect__current,.multiselect--disabled .multiselect__select,.multiselect__option--disabled{background:#ededed;color:#a6a6a6}.multiselect__option--disabled{cursor:text;pointer-events:none}.multiselect__option--group{background:#ededed;color:#35495e}.multiselect__option--group.multiselect__option--highlight{background:#35495e;color:#fff}.multiselect__option--group.multiselect__option--highlight:after{background:#35495e}.multiselect__option--disabled.multiselect__option--highlight{background:#dedede}.multiselect__option--group-selected.multiselect__option--highlight{background:#ff6a6a;color:#fff}.multiselect__option--group-selected.multiselect__option--highlight:after{background:#ff6a6a;content:attr(data-deselect);color:#fff}.multiselect-enter-active,.multiselect-leave-active{transition:all .15s ease}.multiselect-enter,.multiselect-leave-active{opacity:0}.multiselect__strong{margin-bottom:8px;line-height:20px;display:inline-block;vertical-align:top}[dir=rtl] .multiselect{text-align:right}[dir=rtl] .multiselect__select{right:auto;left:1px}[dir=rtl] .multiselect__tags{padding:8px 8px 0 40px}[dir=rtl] .multiselect__content{text-align:right}[dir=rtl] .multiselect__option:after{right:auto;left:0}[dir=rtl] .multiselect__clear{right:auto;left:12px}[dir=rtl] .multiselect__spinner{right:auto;left:1px}@keyframes a{0%{transform:rotate(0)}to{transform:rotate(2turn)}}
+.big-text {
+  font-size: 24px;
+  font-weight: 300;
+
+  b {
+    font-weight: 800;
+  }
+}
+
+h2 {
+  font-weight: 400;
+  font-size: 32px;
+  margin-top: 0px;
+}
+
+.formulate-input-wrapper {
+  label.formulate-input-label.formulate-input-label--before {
+    font-size: 24px;
+    font-weight: 300;
+    margin-bottom: 12px;
+  }
+
+  .formulate-input-group {
+    padding-top: 12px;
+  }
+}
+
+div.formulate-input-group-item.formulate-input {
+  margin-bottom: 20px;
+  font-size: 20px;
+
+  label {
+    font-weight: 400;
+  }
+}
+
+.formulate-input .formulate-input-label {
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.formulate-input-element--checkbox {
+  margin-right: 16px;
+}
+
+.formulate-input-element--range {
+  input {
+    background: transparent;
+  }
+}
+
+
+.formulate-input[data-classification=select] select {
+  color: #fff;
+  background: $grey;
+  border-radius: 10px;
+  border-width: 3px;
+
+  &:focus {
+    border-width: 3px;
+    border-color: #2aab93;
+  }
+}
+
+.formulate-input[data-classification=box] .formulate-input-element input[type=checkbox] ~ .formulate-input-element-decorator {
+  border-color: #2aab93;
+  border-width: 3px;
+  cursor: pointer;
+
+  &:hover {
+    background: #2aab93;
+  }
+}
+
+.formulate-input[data-classification=box] .formulate-input-element input[type=checkbox]:checked ~ .formulate-input-element-decorator {
+  border-color: #2aab93;
+  border-width: 3px;
+
+  &:before {
+    background-color: #2aab93;
+  }
+}
+
+fieldset[disabled] .multiselect{pointer-events:none}.multiselect__spinner{position:absolute;right:1px;top:1px;width:48px;height:35px;background:$white;display:block}.multiselect__spinner:after,.multiselect__spinner:before{position:absolute;content:"";top:50%;left:50%;margin:-8px 0 0 -8px;width:16px;height:16px;border-radius:100%;border-color:#41b883 transparent transparent;border-style:solid;border-width:2px;box-shadow:0 0 0 1px transparent}.multiselect__spinner:before{animation:a 2.4s cubic-bezier(.41,.26,.2,.62);animation-iteration-count:infinite}.multiselect__spinner:after{animation:a 2.4s cubic-bezier(.51,.09,.21,.8);animation-iteration-count:infinite}.multiselect__loading-enter-active,.multiselect__loading-leave-active{transition:opacity .4s ease-in-out;opacity:1}.multiselect__loading-enter,.multiselect__loading-leave-active{opacity:0}.multiselect,.multiselect__input,.multiselect__single{font-family:inherit;font-size:16px;-ms-touch-action:manipulation;touch-action:manipulation}.multiselect{box-sizing:content-box;display:block;position:relative;width:100%;min-height:40px;text-align:left;color:#35495e}.multiselect *{box-sizing:border-box}.multiselect:focus{outline:none}.multiselect--disabled{opacity:.6}.multiselect--active{z-index:1}.multiselect--active:not(.multiselect--above) .multiselect__current,.multiselect--active:not(.multiselect--above) .multiselect__input,.multiselect--active:not(.multiselect--above) .multiselect__tags{border-bottom-left-radius:0;border-bottom-right-radius:0}.multiselect--active .multiselect__select{transform:rotate(180deg)}.multiselect--above.multiselect--active .multiselect__current,.multiselect--above.multiselect--active .multiselect__input,.multiselect--above.multiselect--active .multiselect__tags{border-top-left-radius:0;border-top-right-radius:0}.multiselect__input,.multiselect__single{position:relative;display:inline-block;min-height:20px;line-height:20px;border:none;border-radius:5px;background:$white;padding:0 0 0 5px;width:100%;transition:border .1s ease;box-sizing:border-box;margin-bottom:8px;vertical-align:top}.multiselect__input::-webkit-input-placeholder{color:#35495e}.multiselect__input:-ms-input-placeholder{color:#35495e}.multiselect__input::placeholder{color:#35495e}.multiselect__tag~.multiselect__input,.multiselect__tag~.multiselect__single{width:auto}.multiselect__input:hover,.multiselect__single:hover{border-color:#cfcfcf}.multiselect__input:focus,.multiselect__single:focus{border-color:#a8a8a8;outline:none}.multiselect__single{padding-left:5px;margin-bottom:8px}.multiselect__tags-wrap{display:inline}.multiselect__tags{min-height:40px;display:block;padding:8px 40px 0 8px;border-radius:5px;border:1px solid #e8e8e8;background:$white;font-size:14px}.multiselect__tag{position:relative;display:inline-block;padding:4px 26px 4px 10px;border-radius:5px;margin-right:10px;color:$white;line-height:1;background:#41b883;margin-bottom:5px;white-space:nowrap;overflow:hidden;max-width:100%;text-overflow:ellipsis}.multiselect__tag-icon{cursor:pointer;margin-left:7px;position:absolute;right:0;top:0;bottom:0;font-weight:700;font-style:normal;width:22px;text-align:center;line-height:22px;transition:all .2s ease;border-radius:5px}.multiselect__tag-icon:after{content:"\D7";color:#266d4d;font-size:14px}.multiselect__tag-icon:focus,.multiselect__tag-icon:hover{background:#369a6e}.multiselect__tag-icon:focus:after,.multiselect__tag-icon:hover:after{color:$white}.multiselect__current{min-height:40px;overflow:hidden;padding:8px 12px 0;padding-right:30px;white-space:nowrap;border-radius:5px;border:1px solid #e8e8e8}.multiselect__current,.multiselect__select{line-height:16px;box-sizing:border-box;display:block;margin:0;text-decoration:none;cursor:pointer}.multiselect__select{position:absolute;width:40px;height:38px;right:1px;top:1px;padding:4px 8px;text-align:center;transition:transform .2s ease}.multiselect__select:before{position:relative;right:0;top:65%;color:#999;margin-top:4px;border-style:solid;border-width:5px 5px 0;border-color:#999 transparent transparent;content:""}.multiselect__placeholder{color:#adadad;display:inline-block;margin-bottom:10px;padding-top:2px}.multiselect--active .multiselect__placeholder{display:none}.multiselect__content-wrapper{position:absolute;display:block;background:$white;width:100%;max-height:240px;overflow:auto;border:1px solid #e8e8e8;border-top:none;border-bottom-left-radius:5px;border-bottom-right-radius:5px;z-index:1;-webkit-overflow-scrolling:touch}.multiselect__content{list-style:none;display:inline-block;padding:0;margin:0;min-width:100%;vertical-align:top}.multiselect--above .multiselect__content-wrapper{bottom:100%;border-bottom-left-radius:0;border-bottom-right-radius:0;border-top-left-radius:5px;border-top-right-radius:5px;border-bottom:none;border-top:1px solid #e8e8e8}.multiselect__content::webkit-scrollbar{display:none}.multiselect__element{display:block}.multiselect__option{display:block;padding:12px;min-height:40px;line-height:16px;text-decoration:none;text-transform:none;vertical-align:middle;position:relative;cursor:pointer;white-space:nowrap}.multiselect__option:after{top:0;right:0;position:absolute;line-height:40px;padding-right:12px;padding-left:20px;font-size:13px}.multiselect__option--highlight{background:#41b883;outline:none;color:$white}.multiselect__option--highlight:after{content:attr(data-select);background:#41b883;color:$white}.multiselect__option--selected{background:#f3f3f3;color:#35495e;font-weight:700}.multiselect__option--selected:after{content:attr(data-selected);color:silver}.multiselect__option--selected.multiselect__option--highlight{background:#ff6a6a;color:$white}.multiselect__option--selected.multiselect__option--highlight:after{background:#ff6a6a;content:attr(data-deselect);color:$white}.multiselect--disabled{background:#ededed;pointer-events:none}.multiselect--disabled .multiselect__current,.multiselect--disabled .multiselect__select,.multiselect__option--disabled{background:#ededed;color:#a6a6a6}.multiselect__option--disabled{cursor:text;pointer-events:none}.multiselect__option--group{background:#ededed;color:#35495e}.multiselect__option--group.multiselect__option--highlight{background:#35495e;color:$white}.multiselect__option--group.multiselect__option--highlight:after{background:#35495e}.multiselect__option--disabled.multiselect__option--highlight{background:#dedede}.multiselect__option--group-selected.multiselect__option--highlight{background:#ff6a6a;color:$white}.multiselect__option--group-selected.multiselect__option--highlight:after{background:#ff6a6a;content:attr(data-deselect);color:$white}.multiselect-enter-active,.multiselect-leave-active{transition:all .15s ease}.multiselect-enter,.multiselect-leave-active{opacity:0}.multiselect__strong{margin-bottom:8px;line-height:20px;display:inline-block;vertical-align:top}[dir=rtl] .multiselect{text-align:right}[dir=rtl] .multiselect__select{right:auto;left:1px}[dir=rtl] .multiselect__tags{padding:8px 8px 0 40px}[dir=rtl] .multiselect__content{text-align:right}[dir=rtl] .multiselect__option:after{right:auto;left:0}[dir=rtl] .multiselect__clear{right:auto;left:12px}[dir=rtl] .multiselect__spinner{right:auto;left:1px}@keyframes a{0%{transform:rotate(0)}to{transform:rotate(2turn)}}
 </style>

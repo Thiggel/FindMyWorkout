@@ -52,7 +52,7 @@ export default {
   align-items: center;
   border: 3px solid transparent;
   position: relative;
-  width: 100%;
+  width: calc(100% - 38px);
 
   &:hover, &.focus {
     border: 3px solid #2aab93;

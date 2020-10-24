@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5a73e427-7622-4283-af47-828293da68c4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cSearchInput.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cSearchInput.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,7 +46,7 @@
       <workItem from="1602487665468" duration="126000" />
       <workItem from="1602488404009" duration="6681000" />
       <workItem from="1603011535037" duration="1469000" />
-      <workItem from="1603362203794" duration="13922000" />
+      <workItem from="1603362203794" duration="18863000" />
     </task>
     <servers />
   </component>
@@ -57,9 +58,13 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="572" y="334" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1680.1050@0.0.1680.1050" timestamp="1603449888774" />
-    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup" timestamp="1601632823196">
+    <state x="638" y="446" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603538084752">
+      <screen x="0" y="23" width="1680" height="942" />
+    </state>
+    <state x="638" y="446" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1680.942@0.23.1680.942" timestamp="1603538084752" />
+    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup" timestamp="1603543106686">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1601632823196" />
+    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1603543106686" />
   </component>
 </project>

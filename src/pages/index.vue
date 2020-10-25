@@ -3,91 +3,127 @@
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500&display=swap" rel="stylesheet">
     <transition name="fade">
-      <div class="overlay" id="filter-panel" v-if="filterPanelOpen">
+      <div v-if="filterPanelOpen">
+        <div class="overlay" id="filter-panel">
 
-        <div class="filter-list">
-          <cSearchInput v-model="search" />
+          <div class="filter-list">
+            <cSearchInput v-model="search" />
 
-          <div class="filter-group">
-            <h2>Program Type</h2>
-            <FormulateInput
-                type="checkbox"
-                label="What type of program do you want?"
-                v-model="selectedTrainingTypes"
-                :options="trainingTypes"
-            />
-          </div>
-
-
-          <div class="filter-group">
-            <h2>Time extent</h2>
-
-            <FormulateInput
-                v-model="time.noPreference"
-                type="checkbox"
-                label="No preference"
-            />
-            <div v-if="!time.noPreference">
-              <p class="big-text"><b>{{ time.timesPerWeek }}</b> days a week for <b>{{ time.hoursPerDay }}</b> hours each.</p>
+            <div class="filter-group">
+              <h2>Program Type</h2>
+              <button class="small"
+                  @click="
+                  arrayEquals(selectedTrainingTypes, trainingTypes.map(el => el.value))
+                  ? selectedTrainingTypes = [] : selectedTrainingTypes = trainingTypes.map(el => el.value)"
+              >
+                <span v-if="arrayEquals(selectedTrainingTypes, trainingTypes.map(el => el.value))">Deselect all</span>
+                <span v-else>Select all</span>
+              </button>
               <FormulateInput
-                  label="How many workout days a week?"
-                  type="range"
-                  name="range"
-                  min="1"
-                  max="7"
-                  value="3"
-                  validation="min:1|max:7"
-                  error-behavior="live"
-                  v-model="time.timesPerWeek"
+                  type="checkbox"
+                  label="What type of program do you want?"
+                  v-model="selectedTrainingTypes"
+                  :options="trainingTypes"
               />
+            </div>
+
+
+            <div class="filter-group">
+              <h2>Time extent</h2>
+
               <FormulateInput
-                  label="How many hours per workout?"
-                  type="range"
-                  name="range"
-                  min="1"
-                  max="8"
-                  value="1"
-                  validation="min:1|max:8"
-                  error-behavior="live"
-                  v-model="time.hoursPerDay"
+                  v-model="time.noPreference"
+                  type="checkbox"
+                  label="No preference"
+              />
+              <div v-if="!time.noPreference">
+                <p class="big-text"><b>{{ time.timesPerWeek }}</b> days a week for <b>{{ time.hoursPerDay }}</b> hours each.</p>
+                <FormulateInput
+                    label="How many workout days a week?"
+                    type="range"
+                    name="range"
+                    min="1"
+                    max="7"
+                    value="3"
+                    validation="min:1|max:7"
+                    error-behavior="live"
+                    v-model="time.timesPerWeek"
+                />
+                <FormulateInput
+                    label="How many hours per workout?"
+                    type="range"
+                    name="range"
+                    min="1"
+                    max="8"
+                    value="1"
+                    validation="min:1|max:8"
+                    error-behavior="live"
+                    v-model="time.hoursPerDay"
+                />
+              </div>
+            </div>
+
+
+            <div class="filter-group">
+              <h2>Goal</h2>
+
+              <button class="small"
+                      @click="
+                  arrayEquals(selectedGoals, goals.map(el => el.value))
+                  ? selectedGoals = [] : selectedGoals = goals.map(el => el.value)"
+              >
+                <span v-if="arrayEquals(selectedGoals, goals.map(el => el.value))">Deselect all</span>
+                <span v-else>Select all</span>
+              </button>
+              <FormulateInput
+                  type="checkbox"
+                  label="What's your goal?"
+                  v-model="selectedGoals"
+                  :options="goals"
+              />
+            </div>
+
+
+            <div class="filter-group">
+              <h2>Levels</h2>
+
+              <FormulateInput
+                  v-model="selectedLevels"
+                  :options="levels"
+                  type="select"
+                  placeholder="Select an option"
+                  label="On which athletic level are you?"
+              />
+            </div>
+
+            <div class="filter-group">
+              <h2>Extras</h2>
+
+              <button class="small"
+                      @click="
+                  arrayEquals(selectedExtras, extras.map(el => el.value))
+                  ? selectedExtras = [] : selectedExtras = extras.map(el => el.value)"
+              >
+                <span v-if="arrayEquals(selectedExtras, extras.map(el => el.value))">Deselect all</span>
+                <span v-else>Select all</span>
+              </button>
+
+              <FormulateInput
+                  type="checkbox"
+                  label="What extras do you want?"
+                  v-model="selectedExtras"
+                  :options="extras"
               />
             </div>
           </div>
 
-
-          <div class="filter-group">
-            <h2>Goal</h2>
-            <FormulateInput
-                type="checkbox"
-                label="What's your goal?"
-                v-model="selectedGoals"
-                :options="goals"
-            />
-          </div>
-
-
-          <div class="filter-group">
-            <h2>Levels</h2>
-            <FormulateInput
-                v-model="selectedLevels"
-                :options="levels"
-                type="select"
-                placeholder="Select an option"
-                label="On which athletic level are you?"
-            />
-          </div>
-
-          <div class="filter-group">
-            <h2>Extras</h2>
-            <FormulateInput
-                type="checkbox"
-                label="What extras do you want?"
-                v-model="selectedExtras"
-                :options="extras"
-            />
-          </div>
         </div>
 
+        <div class="option-bar">
+          <div class="option-bar-wrapper">
+            <button @click="filterPanelOpen = false">Apply filters</button>
+          </div>
+        </div>
       </div>
     </transition>
     <div class="wrapper">
@@ -256,11 +292,18 @@ export default {
       return arr.filter(el => this.intersect( el[key].map(i => i.name), selected));
     },
 
+    arrayEquals(a, b) {
+      return Array.isArray(a) &&
+          Array.isArray(b) &&
+          a.length === b.length &&
+          a.every((val, index) => val === b[index]);
+    },
+
     applyFilters(arr, filters) {
-      let res = [];
-      filters.forEach(filter => {
-        res = [...new Set([...res, ...this.filterInclusive(arr, filter.selected, filter.key)])];
-      });
+      let res = arr;
+      for(const i in filters) {
+        res = this.filterInclusive(res, filters[i].selected, filters[i].key);
+      }
 
       return res;
     },
@@ -290,6 +333,8 @@ export default {
 
 $grey: rgba(39, 39, 39, 1);
 $greyTransparent: rgba(39, 39, 39, 0.5);
+$darkGrey: rgba(77, 77, 77, 1);
+$darkGreyTransparent: rgba(77, 77, 77, 0.5);
 $white: #fff;
 
 .fade-enter-active, .fade-leave-active {
@@ -310,6 +355,31 @@ a {
   color: $white;
 }
 
+button {
+  background: #2aab93;
+  border-radius: 10px;
+  padding: 16px;
+  color: $white;
+  text-transform: uppercase;
+  border: transparent;
+  font-family: "Roboto", "Open Sans", "Helvetica Neue", "Arial";
+  font-size: 20px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  outline: none;
+
+  &.small {
+    padding: 8px 16px;
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+
+  &:hover {
+    background: #1c7363;
+  }
+}
+
 .overlay {
   position: fixed;
   top: 0;
@@ -320,6 +390,28 @@ a {
   z-index: 999;
   backdrop-filter: blur(15px);
   overflow-y: scroll;
+}
+
+.option-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: $greyTransparent;
+  backdrop-filter: blur(15px);
+  padding: 40px;
+}
+
+.option-bar-wrapper {
+  display: block;
+  max-width: 1250px;
+  margin: 0 auto;
+
+  button {
+    margin: 0 auto;
+    width: 100%;
+  }
 }
 
 .logo {
@@ -343,8 +435,8 @@ a {
   max-width: 1250px;
   display: block;
   width: auto;
-  margin: 0 auto 40px;
-  margin-top: 150px;
+  margin: 150px auto 40px;
+  padding-bottom: 120px;
 }
 
 .filter-group {
@@ -495,6 +587,12 @@ div.formulate-input-group-item.formulate-input {
 
   &:before {
     background-color: #2aab93;
+  }
+}
+
+.formulate-input[data-classification=box] .formulate-input-element input[type=checkbox]:checked ~ .formulate-input-element-decorator:hover {
+  &:before {
+    background-color: $grey;
   }
 }
 

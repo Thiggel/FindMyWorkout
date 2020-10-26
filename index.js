@@ -75,9 +75,11 @@ module.exports = {
       buildDir: 'dist',
       plugins: [
         '~/plugins/vue-formulate',
-        '~/plugins/vue-click-outside',
-        '~/plugins/vue-multiselect'
-      ]
+        '~/plugins/vue-click-outside'
+      ],
+      env: {
+        baseUrl: process.env.BASE_URL,
+      }
     }),
   ],
 };

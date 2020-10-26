@@ -2,8 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5a73e427-7622-4283-af47-828293da68c4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/assets/js/globals.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/scss/vue-formulate-adjustments.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/cLogo.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/subPages/ages.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/subPages/extras.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/subPages/goal.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/subPages/languages.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/subPages/levels.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/subPages/paymentType.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/subPages/programType.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/subPages/timeExtent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/client.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/client.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/routes.json" beforeDir="false" afterPath="$PROJECT_DIR$/dist/routes.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cFilter.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/results.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/plugins/vue-multiselect.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/state/queries.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/queries.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +37,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1iCFOj8mzyfBQnEo6mcsLkb71x5" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -21,11 +47,15 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/pages/subPages" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="vue.rearranger.settings.migration" value="true" />
     <property name="vuejs.nuxt.types-notification-shown" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/pages/subPages" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/dist" />
       <recent name="$PROJECT_DIR$/src" />
@@ -45,7 +75,7 @@
       <workItem from="1602487665468" duration="126000" />
       <workItem from="1602488404009" duration="6681000" />
       <workItem from="1603011535037" duration="1469000" />
-      <workItem from="1603362203794" duration="22117000" />
+      <workItem from="1603362203794" duration="31065000" />
     </task>
     <servers />
   </component>
@@ -53,10 +83,10 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="572" y="334" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603449888774">
+    <state x="572" y="334" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603641468733">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="572" y="334" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1680.1050@0.0.1680.1050" timestamp="1603449888774" />
+    <state x="572" y="334" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1680.1050@0.0.1680.1050" timestamp="1603641468733" />
     <state x="638" y="446" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603538084752">
       <screen x="0" y="23" width="1680" height="942" />
     </state>

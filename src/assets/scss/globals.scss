@@ -1,0 +1,79 @@
+@import './variables';
+@import './transitions';
+@import "./vue-formulate-adjustments";
+
+
+body {
+  background: $grey;
+  font-family: "Roboto", "Open Sans", "Helvetica Neue", "Arial";
+  color: $white;
+}
+
+// headings
+
+h2 {
+  font-weight: 400;
+  font-size: 32px;
+  margin-top: 0px;
+}
+
+// text
+
+p.text {
+  font-size: 22px;
+  line-height: 28px;
+  text-align: center;
+  font-weight: 300;
+  margin-bottom: 40px;
+}
+
+.big-text {
+  font-size: 24px;
+  font-weight: 300;
+
+  b {
+    font-weight: 800;
+  }
+}
+
+// links
+
+a {
+  text-decoration: none;
+  color: $white;
+}
+
+// buttons
+
+button, a.button {
+  background: $mint;
+  border-radius: 10px;
+  padding: 16px;
+  color: $white;
+  text-transform: uppercase;
+  border: transparent;
+  font-family: "Roboto", "Open Sans", "Helvetica Neue", "Arial";
+  font-size: 20px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  outline: none;
+
+  &.small {
+    padding: 8px 16px;
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+
+  &:hover {
+    background: $darkMint;
+  }
+
+  &.secondary {
+    background: $lightGrey;
+
+    &:hover {
+      background: $midGrey;
+    }
+  }
+}

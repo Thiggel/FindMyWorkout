@@ -56,7 +56,7 @@ exports.GET_DATA = `
 `;
 
 exports.graphql = function(query, variables = {}) {
-    return fetch(process.env.BASE_URL + '/admin/api', {
+    return fetch(process.env.baseUrl + '/admin/api', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

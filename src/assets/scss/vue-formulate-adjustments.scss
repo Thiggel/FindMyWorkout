@@ -1,0 +1,74 @@
+.formulate-input-wrapper {
+  label.formulate-input-label.formulate-input-label--before {
+    font-size: 24px;
+    font-weight: 300;
+    margin-bottom: 12px;
+  }
+
+  .formulate-input-group {
+    padding-top: 12px;
+  }
+}
+
+div.formulate-input-group-item.formulate-input {
+  margin-bottom: 20px;
+  font-size: 20px;
+
+  label {
+    font-weight: 400;
+  }
+}
+
+.formulate-input .formulate-input-label {
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.formulate-input-element--checkbox {
+  margin-right: 16px;
+}
+
+.formulate-input-element--range {
+  input {
+    background: transparent;
+  }
+}
+
+@import './variables';
+
+.formulate-input[data-classification=select] select {
+  color: $white;
+  background: $grey;
+  border-radius: 10px;
+  border-width: 3px;
+
+  &:focus {
+    border-width: 3px;
+    border-color: $mint;
+  }
+}
+
+.formulate-input[data-classification=box] .formulate-input-element input[type=checkbox] ~ .formulate-input-element-decorator {
+  border-color: $mint;
+  border-width: 3px;
+  cursor: pointer;
+
+  &:hover {
+    background: $mint;
+  }
+}
+
+.formulate-input[data-classification=box] .formulate-input-element input[type=checkbox]:checked ~ .formulate-input-element-decorator {
+  border-color: $mint;
+  border-width: 3px;
+
+  &:before {
+    background-color: $mint;
+  }
+}
+
+.formulate-input[data-classification=box] .formulate-input-element input[type=checkbox]:checked ~ .formulate-input-element-decorator:hover {
+  &:before {
+    background-color: $grey;
+  }
+}

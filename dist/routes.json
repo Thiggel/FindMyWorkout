@@ -1,8 +1,72 @@
 [
   {
+    "name": "results",
+    "path": "/results",
+    "component": "/Users/filipe/Documents/find-my-workout/src/pages/results.vue",
+    "chunkName": "pages/results",
+    "_name": "_02de2448"
+  },
+  {
+    "name": "subPages-ages",
+    "path": "/subPages/ages",
+    "component": "/Users/filipe/Documents/find-my-workout/src/pages/subPages/ages.vue",
+    "chunkName": "pages/subPages/ages",
+    "_name": "_3b85751e"
+  },
+  {
+    "name": "subPages-extras",
+    "path": "/subPages/extras",
+    "component": "/Users/filipe/Documents/find-my-workout/src/pages/subPages/extras.vue",
+    "chunkName": "pages/subPages/extras",
+    "_name": "_29bb1fc0"
+  },
+  {
+    "name": "subPages-goal",
+    "path": "/subPages/goal",
+    "component": "/Users/filipe/Documents/find-my-workout/src/pages/subPages/goal.vue",
+    "chunkName": "pages/subPages/goal",
+    "_name": "_1cffb4a0"
+  },
+  {
+    "name": "subPages-languages",
+    "path": "/subPages/languages",
+    "component": "/Users/filipe/Documents/find-my-workout/src/pages/subPages/languages.vue",
+    "chunkName": "pages/subPages/languages",
+    "_name": "_107fface"
+  },
+  {
+    "name": "subPages-levels",
+    "path": "/subPages/levels",
+    "component": "/Users/filipe/Documents/find-my-workout/src/pages/subPages/levels.vue",
+    "chunkName": "pages/subPages/levels",
+    "_name": "_097fa0cc"
+  },
+  {
+    "name": "subPages-paymentType",
+    "path": "/subPages/paymentType",
+    "component": "/Users/filipe/Documents/find-my-workout/src/pages/subPages/paymentType.vue",
+    "chunkName": "pages/subPages/paymentType",
+    "_name": "_2d903fd3"
+  },
+  {
+    "name": "subPages-programType",
+    "path": "/subPages/programType",
+    "component": "/Users/filipe/Documents/find-my-workout/src/pages/subPages/programType.vue",
+    "chunkName": "pages/subPages/programType",
+    "_name": "_6ff4635e"
+  },
+  {
+    "name": "subPages-timeExtent",
+    "path": "/subPages/timeExtent",
+    "component": "/Users/filipe/Documents/find-my-workout/src/pages/subPages/timeExtent.vue",
+    "chunkName": "pages/subPages/timeExtent",
+    "_name": "_170c5d34"
+  },
+  {
     "name": "index",
     "path": "/",
     "component": "/Users/filipe/Documents/find-my-workout/src/pages/index.vue",
-    "chunkName": "pages/index"
+    "chunkName": "pages/index",
+    "_name": "_16cdacb8"
   }
 ]

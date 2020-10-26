@@ -5,6 +5,8 @@
       <div class="wizard">
         <transition name="fade">
           <div class="step" v-if="step === 0">
+            <h1>Find your perfect Program!</h1>
+            <img src="~/assets/images/workout.png" class="hero-image" />
             <p class="text">Finding a good programming is hard. That's why we've created FindMyWorkout, where you can easily compare a lot of famous workout programs to find the one that suits you best. Have fun ☺️!</p>
           </div>
 
@@ -41,16 +43,16 @@
           </div>
         </transition>
 
-        <div v-if="step <= 7">
+        <div v-if="step <= 7" class="options two">
           <button @click="step++">
             <span v-if="step == 0">Start</span>
             <span v-else>Continue</span>
           </button>
           <nuxt-link to="/results" class="button secondary">
-            Skip the wizard
+            Go straight to program list
           </nuxt-link>
         </div>
-        <div v-else>
+        <div v-else class="options">
           <nuxt-link to="/results" class="button">
             Get your results
           </nuxt-link>
@@ -112,5 +114,21 @@ export default {
   max-width: 1250px;
   margin: 0 auto;
   margin-top: 80px;
+}
+
+.options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.two button:first-child {
+    margin-right: 12px;
+  }
+}
+
+.hero-image {
+  max-width: 450px;
+  display: block;
+  margin: 0 auto;
 }
 </style>

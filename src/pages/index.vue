@@ -3,42 +3,42 @@
     <div class="wrapper">
       <cLogo/>
       <div class="wizard">
-        <transition name="fade">
-          <div class="step" v-if="step === 0">
+        <transition name="fade" mode="out-in">
+          <div class="step" v-if="step === 0" key="0">
             <h1>Find your perfect Program!</h1>
             <img src="~/assets/images/workout.png" class="hero-image" />
             <p class="text">Finding a good programming is hard. That's why we've created FindMyWorkout, where you can easily compare a lot of famous workout programs to find the one that suits you best. Have fun ☺️!</p>
           </div>
 
-          <div class="step" v-else-if="step === 1">
+          <div class="step" v-else-if="step === 1" key="1">
             <programType/>
           </div>
 
-          <div class="step" v-else-if="step === 2">
+          <div class="step" v-else-if="step === 2" key="2">
             <timeExtent/>
           </div>
 
-          <div class="step" v-else-if="step === 3">
+          <div class="step" v-else-if="step === 3" key="3">
             <levels/>
           </div>
 
-          <div class="step" v-else-if="step === 4">
+          <div class="step" v-else-if="step === 4" key="4">
             <goal/>
           </div>
 
-          <div class="step" v-else-if="step === 5">
+          <div class="step" v-else-if="step === 5" key="5">
             <extras/>
           </div>
 
-          <div class="step" v-else-if="step === 6">
+          <div class="step" v-else-if="step === 6" key="6">
             <languages/>
           </div>
 
-          <div class="step" v-else-if="step === 7">
+          <div class="step" v-else-if="step === 7" key="7">
             <ages/>
           </div>
 
-          <div class="step" v-else-if="step === 8">
+          <div class="step" v-else-if="step === 8" key="8">
             <paymentType/>
           </div>
         </transition>
@@ -77,6 +77,8 @@ import ages from "@/pages/subPages/ages.vue";
 import paymentType from "@/pages/subPages/paymentType.vue";
 
 export default {
+  transition: 'fade',
+
   data() {
     return {
       step: 0

@@ -91,6 +91,8 @@ import ages from "@/pages/subPages/ages.vue";
 import paymentType from "@/pages/subPages/paymentType.vue";
 
 export default {
+  transition: 'fade',
+
   components: {
     cSearchInput, cLogo, programType, timeExtent, levels, goal, extras, languages, ages, paymentType
   },

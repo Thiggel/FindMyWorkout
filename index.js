@@ -69,7 +69,10 @@ module.exports = {
   keystone,
   apps: [
     new GraphQLApp(),
-    new AdminUIApp({ name: PROJECT_NAME }),
+    new AdminUIApp({
+      name: PROJECT_NAME,
+      authStrategy
+    }),
     new NuxtApp({
       srcDir: 'src',
       buildDir: 'dist',

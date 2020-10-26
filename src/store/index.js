@@ -59,7 +59,7 @@ export const actions = {
 
         this.commit('SAVE_DATA', {
             programs: data.allPrograms.map(program => {
-                program.time = program.trainingDaysPerWeek + ' days / week <br>' + program.hoursPerDay + ' / day';
+                program.time = program.trainingDaysPerWeek + ' days a week / ' + program.hoursPerDay + ' times a day';
                 return program;
             }),
             paymentTypes,

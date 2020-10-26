@@ -41,8 +41,11 @@
       <div v-else class="program-list">
 
         <a v-for="program in filteredPrograms" :key="program.id" class="program-item" :href="program.link" target="_blank">
-          <img class="image" :src="program.image && program.image.publicUrlTransformed ? program.image.publicUrlTransformed : ''">
-          <h1 class="name">{{ program.name }}</h1>
+          <div class="title">
+            <img class="image" :src="program.image && program.image.publicUrlTransformed ? program.image.publicUrlTransformed : ''">
+            <h1 class="name">{{ program.name }}</h1>
+          </div>
+
           <div class="features">
             <div class="type">
               <i class="las la-warehouse"></i>
@@ -67,6 +70,14 @@
             <div class="language">
               <i class="las la-language"></i>
               <span>{{ getNameList(program.languages) }}</span>
+            </div>
+            <div class="payment">
+              <i class="las la-money-bill"></i>
+              <span>{{ getNameList(program.payment) }}</span>
+            </div>
+            <div class="ages">
+              <i class="las la-user"></i>
+              <span>{{ getNameList(program.ages) }}</span>
             </div>
           </div>
         </a>
@@ -100,7 +111,9 @@ export default {
   head: {
     title: 'Find My Workout',
     meta: [
-      { hid: 'robots', name: 'robots', content: 'noindex' }
+      { hid: 'robots', name: 'robots', content: 'noindex' },
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
     ]
   },
 
@@ -166,8 +179,15 @@ export default {
       return arr.filter(el => el.name.toUpperCase().includes(this.search.toUpperCase()))
     },
 
+    truncate(input, length) {
+      if (input.length > length)
+        return input.substring(0, length) + '...';
+
+      return input;
+    },
+
     getNameList(arr) {
-      return arr.map(el => el.name).join(", ");
+      return this.truncate(arr.map(el => el.name).join(", "), 25);
     }
   },
 };
@@ -266,8 +286,13 @@ export default {
   width: auto;
   margin: 80px auto 0;
 
+  @media screen and (max-width: 1250px) {
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+
   .program-item {
-    width: calc(100%- 48px);
+    width: calc(100% - 48px);
     margin-bottom: 24px;
     background: $lightGrey;
     padding: 24px;
@@ -277,14 +302,31 @@ export default {
     justify-content: space-between;
     border: 3px solid transparent;
 
+    @media screen and (max-width: 800px) {
+      flex-direction: column;
+      padding: 12px;
+    }
+
     &:hover {
       border: 3px solid $mint;
       cursor: pointer;
     }
 
+    .title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-left: 40px;
+
+      @media screen and (max-width: 800px) {
+        margin-left: 0;
+        margin-bottom: 24px;
+      }
+    }
+
     img {
       width: 100px;
-      margin-left: 40px;
     }
 
     h1 {
@@ -294,17 +336,34 @@ export default {
 
     .features {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
       grid-template-rows: 1fr 1fr;
       grid-gap: 12px;
-      max-width: 70%;
+      max-width: 82.5%;
       margin-right: 24px;
+      margin-left: 40px;
+
+      @media screen and (max-width: 1200px) {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+      }
+
+      @media screen and (max-width: 800px) {
+        max-width: 100%;
+        margin-right: 0;
+        margin-left: 0;
+        margin-bottom: 24px;
+      }
+
+      @media screen and (max-width: 630px) {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+      }
 
       & > div {
         width: calc(100% - 48px);
         display: flex;
         align-items: center;
-        margin: 0 24px;
         background: $midGrey;
         padding: 12px 24px;
         border-radius: 30px;

@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5a73e427-7622-4283-af47-828293da68c4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/cLoadingSpinner.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/scss/globals.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/scss/globals.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/results.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/results.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +55,7 @@
       <workItem from="1602487665468" duration="126000" />
       <workItem from="1602488404009" duration="6681000" />
       <workItem from="1603011535037" duration="1469000" />
-      <workItem from="1603362203794" duration="35284000" />
+      <workItem from="1603362203794" duration="35778000" />
     </task>
     <servers />
   </component>

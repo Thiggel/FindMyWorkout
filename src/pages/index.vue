@@ -124,9 +124,19 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 40px;
 
   &.two button:first-child {
     margin-right: 12px;
+  }
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+
+    &.two button:first-child {
+      margin-right: 0;
+      margin-bottom: 12px;
+    }
   }
 }
 

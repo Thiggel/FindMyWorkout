@@ -35,7 +35,7 @@
       <cLogo/>
 
       <!-- Data not loaded yet -->
-      <p v-if="!programs">loading...</p>
+      <p v-if="!programs"><cLoadingSpinner/></p>
 
       <!-- If there are some... -->
       <div v-else class="program-list">
@@ -92,6 +92,7 @@ import { getState } from '@/store/getState';
 import { globals } from '@/assets/js/globals';
 import cSearchInput from "@/components/cSearchInput.vue";
 import cLogo from "@/components/cLogo.vue";
+import cLoadingSpinner from "@/components/cLoadingSpinner.vue";
 import programType from "@/pages/subPages/programType.vue";
 import timeExtent from "@/pages/subPages/timeExtent.vue";
 import levels from "@/pages/subPages/levels.vue";
@@ -105,7 +106,7 @@ export default {
   transition: 'fade',
 
   components: {
-    cSearchInput, cLogo, programType, timeExtent, levels, goal, extras, languages, ages, paymentType
+    cSearchInput, cLogo, cLoadingSpinner, programType, timeExtent, levels, goal, extras, languages, ages, paymentType
   },
 
   head: {
@@ -270,6 +271,11 @@ export default {
   width: auto;
   margin: 150px auto 40px;
   padding-bottom: 120px;
+
+  @media screen and (max-width: 1250px) {
+    margin-left: 24px;
+    margin-right: 24px;
+  }
 }
 
 .filter-group {

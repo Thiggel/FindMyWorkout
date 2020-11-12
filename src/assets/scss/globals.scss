@@ -4,7 +4,8 @@
 
 
 body {
-  background: $grey;
+  background: $greyGradient no-repeat;
+  height: 100vh;
   font-family: "Roboto", "Open Sans", "Helvetica Neue", "Arial";
   color: $white;
   overflow-x: hidden;

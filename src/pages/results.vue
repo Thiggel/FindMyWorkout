@@ -40,10 +40,18 @@
       <!-- If there are some... -->
       <div v-else class="program-list">
 
-        <a v-for="program in filteredPrograms" :key="program.id" class="program-item" :href="program.link" target="_blank">
+        <a
+            v-for="program in filteredPrograms"
+            :key="program.id"
+            class="program-item"
+            :href="program.link"
+            target="_blank"
+            style=""
+        >
           <div class="title">
-            <img class="image" :src="program.image && program.image.publicUrlTransformed ? program.image.publicUrlTransformed : ''">
+            <!--<img class="image" :src="program.image && program.image.publicUrlTransformed ? program.image.publicUrlTransformed : ''">-->
             <h1 class="name">{{ program.name }}</h1>
+            <span class="price">{{ getPrice(program) }}</span>
           </div>
 
           <div class="features">
@@ -67,19 +75,14 @@
               <i class="las la-level-up-alt"></i>
               <span>{{ getNameList(program.level) }}</span>
             </div>
-            <div class="language">
-              <i class="las la-language"></i>
-              <span>{{ getNameList(program.languages) }}</span>
-            </div>
-            <div class="payment">
-              <i class="las la-money-bill"></i>
-              <span>{{ getNameList(program.payment) }}</span>
-            </div>
             <div class="ages">
               <i class="las la-user"></i>
               <span>{{ getNameList(program.ages) }}</span>
             </div>
           </div>
+
+          <div class="bg-gradient"></div>
+          <div class="bg-image"></div>
         </a>
       </div>
     </div>
@@ -188,7 +191,7 @@ export default {
     },
 
     getNameList(arr) {
-      return this.truncate(arr.map(el => el.name).join(", "), 25);
+      return this.truncate(arr.map(el => el.name).slice(0,2).join(", ") + (arr.map(el => el.name).length > 2 ? ', …' : ''), 24);
     }
   },
 };
@@ -300,13 +303,15 @@ export default {
   .program-item {
     width: calc(100% - 48px);
     margin-bottom: 24px;
-    background: $lightGrey;
-    padding: 24px;
+    padding: 24px 48px;
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 3px solid transparent;
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.25s ease;
 
     @media screen and (max-width: 800px) {
       flex-direction: column;
@@ -314,8 +319,32 @@ export default {
     }
 
     &:hover {
-      border: 3px solid $mint;
+      transform: scale(1.01);
       cursor: pointer;
+    }
+
+    .bg-gradient {
+      background: linear-gradient(-90deg, #222222 50%, rgba(34, 34, 34, 0) 160%);
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      z-index: 0;
+    }
+
+    .bg-image {
+      background-image:
+          url(https://images.unsplash.com/photo-1556817411-31ae72fa3ea0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80);
+      background-size: cover;
+      background-position: -20vw center;
+      filter: saturate(0);
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      z-index: -1;
     }
 
     .title {
@@ -323,7 +352,18 @@ export default {
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-left: 40px;
+      z-index: 1;
+      margin-left: 24px;
+
+      .price {
+        background: $mint;
+        border-radius: 50px;
+        padding: 8px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
 
       @media screen and (max-width: 800px) {
         margin-left: 0;
@@ -338,20 +378,33 @@ export default {
     h1 {
       font-size: 24px;
       font-weight: 500;
+      text-transform: uppercase;
+      width: 120px;
+      height: 120px;
+      border-radius: 100px;
+      background: $darkMidGrey;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      word-break: break-word;
+      hyphens: auto;
+      z-index: 1;
     }
 
     .features {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       grid-template-rows: 1fr 1fr;
       grid-gap: 12px;
-      max-width: 82.5%;
+      max-width: 85%;
       margin-right: 24px;
       margin-left: 40px;
+      z-index: 1;
 
       @media screen and (max-width: 1200px) {
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
       }
 
       @media screen and (max-width: 800px) {
@@ -363,16 +416,17 @@ export default {
 
       @media screen and (max-width: 630px) {
         grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
       }
 
       & > div {
-        width: calc(100% - 48px);
+        width: calc(100% - 72px);
+        min-width: 240px;
         display: flex;
         align-items: center;
-        background: $midGrey;
-        padding: 12px 24px;
-        border-radius: 30px;
+        background: $darkMidGrey;
+        padding: 16px 36px;
+        border-radius: 100px;
         font-size: 16px;
         font-weight: 400;
 

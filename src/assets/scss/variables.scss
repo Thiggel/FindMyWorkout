@@ -4,9 +4,15 @@
 $grey: rgba(39, 39, 39, 1);
 $greyTransparent: rgba(39, 39, 39, 0.5);
 $darkGrey: rgba(77, 77, 77, 1);
+$darkMidGrey: #2F2F2F;
 $darkGreyTransparent: rgba(77, 77, 77, 0.5);
 $lightGrey: #4D4D4D;
 $midGrey: #3a3a3a;
 $white: #fff;
 $mint: rgb(42, 171, 147);
 $darkMint: rgb(28, 115, 99);
+
+
+// gradients
+
+$greyGradient: radial-gradient(89.5% 89.5% at 50% 50%, $lightGrey 0%, #242424 100%);
